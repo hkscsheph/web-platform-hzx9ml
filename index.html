@@ -23,6 +23,7 @@
         Password: <input type="password" name="pw" id="passwordID"> <br>
         <input type="submit">
       </form>
+      <div class="loader hidden"></div>
     </main>
     <script>
       document.getElementById('formID').addEventListener('submit', async e => {
@@ -30,13 +31,16 @@
         
         const text = document.getElementById('textID').value
         const password = document.getElementById('passwordID').value
-        document.getElementById('formID').innerText = "Loading..."
+        document.getElementsByClassName('loader')[0].classList.toggle('hidden')
         
         
         const res = await fetch(`https://script.google.com/macros/s/AKfycbyI_nGs0CMk46iN6gGfYxlda_wpsGn3JdLWUKLS55idzAyrNWXPKTfg7zLYRCwtUThO6A/exec`
           +`?a=${text}&b=${password}`)
         const resText = await res.text()
         document.getElementById('formID').innerText = resText
+
+        // const res = await new Promise(resolve => setTimeout(resolve, 3000))
+        document.getElementsByClassName('loader')[0].classList.toggle('hidden')
       })
     </script>
   </body>
