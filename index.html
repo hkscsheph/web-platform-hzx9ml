@@ -29,13 +29,26 @@
       document.getElementById('formID').addEventListener('submit', async e => {
         e.preventDefault()
         
-        const text = document.getElementById('textID').value
-        const password = document.getElementById('passwordID').value
+        const fd = new FormData(document.getElementById('formID'))
         document.getElementsByClassName('loader')[0].classList.toggle('hidden')
         
         
-        const res = await fetch(`https://script.google.com/macros/s/AKfycbyI_nGs0CMk46iN6gGfYxlda_wpsGn3JdLWUKLS55idzAyrNWXPKTfg7zLYRCwtUThO6A/exec`
-          +`?a=${text}&b=${password}`)
+        const res = await fetch(`https://script.google.com/macros/s/AKfycbyTs8TqdkTYqZ024h7SJZEK1GaPRPpLI6MlCFbI0dBaG5UvnI9LABxCdmJ3DapNy6Q05Q/exec`,{
+          method: 'POST',
+          body: fd,
+        })
+
+        // function doPost(e) {
+        //   const {txt, pw} = e.parameter
+        //   SpreadsheetApp.getActiveSheet().appendRow([`a=${txt}&b=${pw}`])
+        //   return ContentService.createTextOutput(
+        //     SpreadsheetApp.getActiveSheet().getRange(
+        //       SpreadsheetApp.getActiveSheet().getLastRow(), 
+        //       2
+        //     ).getValues()
+        //   )
+        // }
+
         const resText = await res.text()
         document.getElementById('formID').innerText = resText
 
