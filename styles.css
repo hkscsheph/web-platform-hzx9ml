@@ -84,3 +84,26 @@ h1 {
 .loader.hidden {
   display:none;
 }
+
+input + span {
+  position: relative;
+}
+
+input + span::before {
+  position: absolute;
+  right: -20px;
+}
+
+input:user-invalid {
+  border: 2px solid red;
+}
+
+input:user-invalid + span::before {
+  content: "✖";
+  color: red;
+}
+
+input:user-valid + span::before {
+  content: "✓";
+  color: green;
+}
