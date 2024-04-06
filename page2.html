@@ -13,7 +13,31 @@
       <a href="/page2.html" aria-current="page">Other page</a>
     </nav>
     <main>
-      <h1>My other page</h1>
+      <h1>學習紀錄</h1>
+      <!-- TODO: 其他用戶消息 -->
+      <div id="buttons">
+        <button id="start">▶️</button>
+        <button id="stop">⏸️</button>
+        <button id="reset">⏪</button>
+        <button id="done">✅</button>
+      </div>
+      <div id="timer">00:00:00</div>
+      <form id="record">
+        課題: <input type="text" name="topic" list="dse"><br>
+        標籤: <input type="text" name="tag"><br>
+        備註: <textarea></textarea>
+      </form>
+
+      <datalist id="dse">
+        <option>資訊處理 Information Processing</option>
+        <option>電腦系統基礎 Computer System Fundamentals</option>
+        <option>互聯網及其應用 Internet and Its Application</option>
+        <option>計算思維與程式編寫 Computational Thinking and Programming</option>
+        <option>對社會的影響 Social Implications</option>
+        <option>數據庫 Database</option>
+        <option>網絡應用程式開發 Web Application Development</option>
+        <option>算法與程式編寫 Algorithm and Programming</option>
+      </datalist>
     </main>
   </body>
 </html>

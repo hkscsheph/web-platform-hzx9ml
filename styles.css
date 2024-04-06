@@ -107,3 +107,14 @@ input:user-valid + span::before {
   content: "✓";
   color: green;
 }
+
+#buttons button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 40px;
+}
+
+#timer {
+  font-size: 100px
+}

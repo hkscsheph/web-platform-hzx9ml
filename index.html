@@ -19,9 +19,8 @@
     <main>
       <h1>Home page</h1>
       <form id="formID" action="https://script.google.com/macros/s/AKfycby0qCSrIYgk2I8pHCmX1RB9YRup6aI2mBqE7EeTz_3Skwa71YbYFWDHmt88sf4Wj0Q2Qg/exec" method="get">
-        Email: <input type="email" name="email"> <span></span> <br>
-        Password: <input type="password" name="pw"> <span></span> <br>
-        Remarks: <input type="text" name="txt"> <span></span> <br>
+        Email: <input type="email" name="username"> <span></span> <br>
+        Password: <input type="password" name="password"> <span></span> <br>
         <input type="submit">
       </form>
       <div class="loader hidden"></div>
@@ -30,35 +29,65 @@
       document.getElementById('formID').addEventListener('submit', async e => {
         e.preventDefault()
         
-        const fd = new FormData(document.getElementById('formID'))
+        const formData = new FormData(document.getElementById('formID'))
         document.getElementsByClassName('loader')[0].classList.toggle('hidden')
         
         
-        const res = await fetch(`https://script.google.com/macros/s/AKfycbyTs8TqdkTYqZ024h7SJZEK1GaPRPpLI6MlCFbI0dBaG5UvnI9LABxCdmJ3DapNy6Q05Q/exec`,{
+        const res = await fetch(`https://script.google.com/macros/s/AKfycbxO1QWDVw9oSTTDh2JVbC-GP3OJGRWdCMiEIbPtZ3dxT8ct23WDpXK9VhLLZjCAolf0/exec`,{
           method: 'POST',
-          body: fd,
+          body: formData,
         })
-
-        // Google Apps Script 處理中文
-        // SpreadsheetApp.getActiveSheet().appendRow([decodeURI(e.queryString)])
-
-        // Google Apps Script 從 GET 轉為 POST
-        // function doPost(e) {
-        //   const {txt, pw} = e.parameter
-        //   SpreadsheetApp.getActiveSheet().appendRow([`a=${txt}&b=${pw}`])
-        //   return ContentService.createTextOutput(
-        //     SpreadsheetApp.getActiveSheet().getRange(
-        //       SpreadsheetApp.getActiveSheet().getLastRow(), 
-        //       2
-        //     ).getValues()
-        //   )
-        // }
 
         const resText = await res.text()
         document.getElementById('formID').innerText = resText
 
         // const res = await new Promise(resolve => setTimeout(resolve, 3000))
         document.getElementsByClassName('loader')[0].classList.toggle('hidden')
+        
+        // // 使用箭頭函數定義 doPost 函數，接收一個參數 e
+        // const doPost = (e) => {
+        //   // 使用解構賦值從 e.parameter 中提取 帳呢 和 密碼 參數
+        //   const {username, password} = e.parameter;
+            
+        //   // 使用 MD5 編碼密碼
+        //   const encodedPassword = md5(password); // 假設 md5 函數已經定義
+            
+        //   // 將帳號和編碼後的密碼作為新行添加到工作表的末尾，格式為 "datetime&username=...&password=..."
+        //   const isMatch = appendAndCheck(`${new Date().toISOString()}&username=${username}&password=${encodedPassword}`);
+            
+        //   // 檢查登入是否成功並返回結果
+        //   if (isMatch) {
+        //       return ContentService.createTextOutput("Login Successful");
+        // } else {
+        //     // 帳號不存在或密碼錯誤，返回失敗訊息
+        //     return ContentService.createTextOutput("Login Failed: Username Not Found or Wrong Password");
+        // }
+        // }
+
+        // // MD5 編碼函數
+        // const md5 = (inputString) => {
+        // return Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, inputString)
+        //     .reduce((output, byte) => output + (byte < 0 ? byte + 256 : byte).toString(16).padStart(2, '0'), '');
+        // }
+
+
+        // // 定義一個名為 appendAndCheck 的函數，接收一個名為 formattedRow 的參數
+        // const appendAndCheck = (formattedRow) => {
+        // // 獲取名為 'Login' 的工作表並將其儲存到變數 sheetLogin 中
+        // const sheetLogin = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Login');
+          
+        // // 將 formattedRow 作為新行添加到工作表的末尾，並進行中文轉換
+        // sheetLogin.appendRow([decodeURI(formattedRow)]);
+          
+        // // 獲取工作表中最後一行的行號並將其儲存到變數 lastRow 中
+        // const lastRow = sheetLogin.getLastRow();
+          
+        // // 從新添加的行中獲取第四列的值並將其儲存到變數 check 中
+        // const check = sheetLogin.getRange(lastRow, 4).getValue();
+
+        // // 返回 check 的值，這是新添加行中第四列的值
+        // return check;
+        // }
       })
     </script>
   </body>
